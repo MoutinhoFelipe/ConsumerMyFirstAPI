@@ -12,11 +12,12 @@ namespace ConsumerMyFirstAPI
         {
             var ConsumerController = new ConsumerController(MyConfig.QueueName);
             var TripRepository = new TripRepository(MyConfig.ConnectionString);
-            var TripReturned = new Trip();
+            var TripReturned = new TripModel();
 
-            ConsumerController.SelectDriverById();
-            TripReturned = TripRepository.selectTripFromDB(ConsumerController.IdTripConsumed);
-            Console.WriteLine($"O nome do motorista é {TripReturned.NameDriver} e seu número de telefone é {TripReturned.PhoneNumberDriver}");
+            //True para ligar Console.WriteLine
+            //ConsumerController.ConsumeQueue(true);
+            var idReturned = ConsumerController.ConsumeQueue(false).Id;
+            TripRepository.SelectTripFromDB(idReturned);
         }
     }
 }

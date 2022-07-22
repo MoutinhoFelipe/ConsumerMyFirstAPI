@@ -15,23 +15,23 @@ namespace ConsumerMyFirstAPI
             this.ConnectionString = conn;
         }
 
-        public Trip selectTripFromDB(string IdTripRequest)
+        public TripModel SelectTripFromDB(int IdTripRequest)
         {
-            using (var connection = new SqlConnection(ConnectionString)) 
+            using (var connection = new SqlConnection(ConnectionString))
             {
-                Trip trip01 = new Trip();
+                TripModel tripRepository01 = new TripModel();
                 string queryString = $"SELECT id, driver_name, driver_phone_number FROM trip WHERE id = '{IdTripRequest}'";
                 var command = new SqlCommand(queryString, connection);
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    trip01.Id = (int)reader[0];
-                    trip01.NameDriver = (string)reader[1];
-                    trip01.PhoneNumberDriver = (string)reader[2];
+                    tripRepository01.Id = (int)reader[0];
+                    tripRepository01.NameDriver = (string)reader[1];
+                    tripRepository01.PhoneNumberDriver = (string)reader[2];
                 }
-                
-                return trip01;
+                Console.WriteLine($"[Via Query do Banco de Dados] Trip ID: {tripRepository01.Id} | Name Driver: {tripRepository01.NameDriver} | Phone Number Driver: {tripRepository01.PhoneNumberDriver}");
+                return tripRepository01;
             }
         }
     }

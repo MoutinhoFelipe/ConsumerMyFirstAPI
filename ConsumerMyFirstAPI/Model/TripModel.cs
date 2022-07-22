@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ConsumerMyFirstAPI
 {
-    public class Trip
+    public class TripModel
     {
         public int Id { get; set; }
         public string NameDriver { get; set; }
         public string PhoneNumberDriver { get; set; }
 
-        public Trip() { }
+        public TripModel() { }
 
     }
 }
